@@ -66,6 +66,31 @@ const convert = async () => {
   }
 };
 
+const fromValueInput = document.getElementById('fromValue');
+const toValueInput = document.getElementById('toValue');
+
+// Selects text when the inputs are clicked or focused
+onMounted(() => {
+  const fromValueInput = document.getElementById('fromValue');
+  const toValueInput = document.getElementById('toValue');
+
+  fromValueInput.addEventListener('click', function () {
+    this.select();
+  });
+
+  fromValueInput.addEventListener('focus', function () {
+    this.select();
+  });
+
+  toValueInput.addEventListener('click', function () {
+    this.select();
+  });
+
+  toValueInput.addEventListener('focus', function () {
+    this.select();
+  });
+});
+
 onMounted(convert);
 </script>
 
@@ -79,6 +104,7 @@ onMounted(convert);
         </option>
       </select>
       <input
+        id="fromValue"
         v-model.number="fromValue"
         type="number"
         step="0.0001"
@@ -93,7 +119,7 @@ onMounted(convert);
           {{ k }}&nbsp;{{ v.symbol ?? "" }}
         </option>
       </select>
-      <input v-model.number="toValue" type="number" readonly />
+      <input id="toValue" v-model.number="toValue" type="number" readonly />
     </fieldset>
     <fieldset>
       <button type="button" @click="swap">
