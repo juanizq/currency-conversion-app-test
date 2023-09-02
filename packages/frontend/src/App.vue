@@ -54,6 +54,9 @@ const convert = async () => {
       },
     );
     if (!response.ok) {
+      const tiempoDeshabilitado = response.headers.get('X-Ratelimit-Reset');
+      const btnConvertir = document.getElementById('convertir');
+      deshabilitarBoton(btnConvertir, tiempoDeshabilitado)
       throw new Error(`Unexpected API response code: ${response.status}`);
     }
 
@@ -66,7 +69,16 @@ const convert = async () => {
   }
 };
 
-// On mount, convert default currencies.
+function deshabilitarBoton(Boton, tiempo) {
+
+  Boton.disabled = true;
+  const milisegundos = tiempo * 1000
+
+  setTimeout(function() {
+    Boton.disabled = false;
+  }, milisegundos); 
+}
+
 onMounted(convert);
 </script>
 
@@ -100,7 +112,7 @@ onMounted(convert);
       <button type="button" @click="swap">
         <fa :icon="faRetweet" fw />&nbsp;Swap
       </button>
-      <button type="submit">
+      <button type="submit" id="convertir">
         <fa :icon="faArrowsRotate" fw />&nbsp;Convert
       </button>
     </fieldset>
