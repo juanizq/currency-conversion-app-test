@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "version": "0.0.1",
+  "packageManager": "pnpm@8.7.0",
+  "engines": {
+    "node": ">=18.17.1"
+  },
+  "scripts": {
+    "clean": "pnpm -r run clean",
+    "lint": "pnpm -r run lint",
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "start": "pnpm -r run start"
+  },
+  "devDependencies": {
+    "cross-env": "~7.0.3",
+    "rimraf": "~5.0.1"
+  }
+}
