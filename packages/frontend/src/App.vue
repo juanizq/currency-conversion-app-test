@@ -69,6 +69,7 @@ const convert = async () => {
   }
 };
 
+// Disables the button for the X-Ratelimit-Reset time
 function deshabilitarBoton(Boton, tiempo) {
 
   Boton.disabled = true;
