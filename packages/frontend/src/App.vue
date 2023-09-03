@@ -166,7 +166,6 @@ body {
     font-size: toRem(16);
     font-weight: 700;
     border: 0;
-    border-radius: toRem(3);
     color: map-get($theme-colors, "primary");
     background-color: map-get($theme-colors, "light");
     cursor: pointer;
@@ -219,5 +218,20 @@ body {
       margin: 0;
     }
   }
+  button,
+  input[type="number"],
+  select {
+    border-radius: 0;
+
+    &:first-child {
+      border-top-left-radius: toRem(3);
+      border-bottom-left-radius: toRem(3);
+    }
+
+    &:last-child {
+      border-top-right-radius: toRem(3);
+      border-bottom-right-radius: toRem(3);
+    }
+}
 }
 </style>
