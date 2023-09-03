@@ -18,26 +18,10 @@ const toCurrency = ref("USD");
 const toValue = ref(null);
 
 // Supported currencies.
-const currencies = ref({});
-
-// Gets the currencies from the endpoint.
-onMounted(async () => {
-  try {
-    const response = await fetch(`${apiEndpoint}/currencies/`, {
-      method: "GET",
-    });
-    if (!response.ok) {
-      throw new Error(`Unexpected API response code: ${response.status}`);
-    }
-
-    const responseData = await response.json();
-    console.log(responseData);
-    currencies.value = responseData.currencies;
-  } catch (error) {
-    errorMessage.value = error.message;
-  }
+const currencies = ref({
+  EUR: { code: "EUR", symbol: "€" },
+  USD: { code: "USD", symbol: "$" },
 });
-
 
 // Error message to show.
 const errorMessage = ref("");
