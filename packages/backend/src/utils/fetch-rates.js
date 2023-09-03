@@ -1,14 +1,16 @@
 import undici from "undici";
 import { config } from "../config.js";
 
-export const fetchRates = async () => {
+let cachedRates = null;
+
+const fetchRatesFromApi = async () => {
   const endpoint = new URL(config.MONEYCONVERT_ENDPOINT);
-  // Prevent cached response.
   endpoint.searchParams.set("_", Date.now());
 
   const { statusCode, body } = await undici.request(endpoint, {
     method: "GET",
   });
+
   if (statusCode < 200 || statusCode > 299) {
     throw new Error(`Unexpected API response code: ${statusCode}`);
   }
@@ -19,4 +21,17 @@ export const fetchRates = async () => {
   }
 
   return new Map([...Object.entries(data.rates)].sort());
+};
+
+export const fetchRates = async () => {
+  if (cachedRates && Date.now() - cachedRates.timestamp < 3600000) {
+    return cachedRates.rates;
+  } else {
+    const rates = await fetchRatesFromApi();
+    cachedRates = {
+      timestamp: Date.now(),
+      rates: rates,
+    };
+    return rates;
+  }
 };
