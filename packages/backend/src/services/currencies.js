@@ -1,4 +1,4 @@
-//import { currencySymbols } from "../utils/currency-symbols.js";
+import { currencySymbols } from "../utils/currency-symbols.js";
 
 export class CurrenciesService {
   constructor(app) {
@@ -7,7 +7,15 @@ export class CurrenciesService {
 
   async get({ reply }) {
     try {
-      const currencies = {};
+      const currencies = {
+        ...Object.keys(currencySymbols).reduce((acc, code) => {
+          acc[code] = {
+            "code": code,
+            "symbol": currencySymbols[code]
+          };
+          return acc;
+        }, {})
+      };
 
       reply.send({ currencies });
     } catch (error) {
